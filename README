@@ -2,7 +2,7 @@
 
 
 - Teste WEB Informações
-  - Utilizado Migrations para criação do banco
+  - Utilizado Migrations para criação da base de dados
     -- connectionString:
         -- Server está nomeado como LocalDB
         -- Database está nomeado como CEP
