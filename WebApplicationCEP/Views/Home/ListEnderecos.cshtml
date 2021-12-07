@@ -1,0 +1,75 @@
+﻿@model IEnumerable<WebApplicationCEP.Models.Cep>
+
+@{
+    ViewData["Title"] = "ListEnderecos";
+}
+
+<h3>Endereços regsitrados</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CEP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Logradouro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bairro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Localidade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Complemento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UF)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SIAFI)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GIA)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IBGE)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CEP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Logradouro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bairro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Localidade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Complemento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UF)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SIAFI)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GIA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IBGE)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

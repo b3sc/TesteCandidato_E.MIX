@@ -1,0 +1,10 @@
+# Teste Candidato - EMIX
+
+
+- Teste WEB Informações
+  - Utilizado Migrations para criação do banco
+    -- connectionString:
+        -- Server está nomeado como LocalDB
+        -- Database está nomeado como CEP
+        -- Tabela CEP está nomeada como Ceps
+

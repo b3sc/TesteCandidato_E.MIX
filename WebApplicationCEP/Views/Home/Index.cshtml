@@ -1,0 +1,172 @@
+﻿@model WebApplicationCEP.Models.Cep
+@{
+    ViewData["Title"] = "Home Page";
+
+    @if (TempData["result"] != null && TempData["result"].ToString() == "ERROR")
+    {
+        <script>
+            alert('CEP não localizado');
+        </script>
+    }
+
+
+    @if (TempData["result"] != null && TempData["result"].ToString() == "OK")
+    {
+        <script>
+            setTimeout(() => {
+                   document.getElementById("btnSaveEndereco").disabled = false;
+               }, 200)
+        </script>
+    }
+
+    @if (TempData["result"] != null && TempData["result"].ToString() == "REPEAT")
+    {
+        <script>
+            alert('CEP já registrado no banco!');
+        </script>
+    }
+
+
+    @if (TempData["result"] != null && TempData["result"].ToString() == "SAVE")
+    {
+        <script>
+            alert('Endereço salvo com sucesso!');
+
+            setTimeout(() => {
+                for(i = 0; i < document.getElementsByTagName("input").length; i++){
+                    document.getElementsByTagName("input")[i].value = '';
+                }
+
+                document.getElementById("btnSaveEndereco").disabled = true;
+
+
+            }, 200)
+
+        </script>
+    }
+
+}
+
+<div class="container">
+    <style>
+        .item {
+            padding: 15px;
+        }
+
+        .main {
+            margin-top: 20px;
+            border: 1px solid blue;
+            border-radius: 5px;
+            padding: 15px;
+        }
+    </style>
+    <form class="form-inline" id="getCEP" asp-action="BuscarCEP">
+
+        <label class="m-1">Digite um CEP e encontre o endereço:</label>
+        <div class="input-group">
+            <div class="col-3 m-1">
+                <input type="text" maxlength="8" class="form-control" id="cep" name="cep" asp-for="CEP" />
+            </div>
+            <div class="input-group-btn m-1">
+                <button type="button" onclick="validateSubmit_BuscaCEP()" class="btn btn-outline-warning"> Localizar </button>
+            </div>
+        </div>
+
+    </form>
+
+
+    <form id="saveEndereco" asp-action="Salvar_Endereco">
+        <div class=" main row">
+
+            <input type="text" class="form-control d-none" name="cep" asp-for="CEP" />
+
+            <div class="item col-12">
+                <div class="form-group">
+                    <label asp-for="Logradouro" class="control-label"></label>
+                    <input type="text" class="form-control" name="logradouro" asp-for="Logradouro" readonly />
+                </div>
+            </div>
+
+            <div class="item col-4">
+                <div class="form-group">
+                    <label asp-for="Bairro" class="control-label"></label>
+                    <input type="text" class="form-control" name="bairro" asp-for="Bairro" readonly />
+                </div>
+            </div>
+            <div class="item col-4">
+                <div class="form-group">
+                    <label asp-for="Localidade" class="control-label"></label>
+                    <input type="text" class="form-control" name="localidade" asp-for="Localidade" readonly />
+                </div>
+            </div>
+
+            <div class="item col-2">
+                <div class="form-group">
+                    <label asp-for="UF" class="control-label"></label>
+                    <input type="text" class="form-control" name="uf" asp-for="UF" readonly />
+                </div>
+            </div>
+
+            <div class="w-100"></div>
+
+            <div class="item col-4">
+                <div class="form-group">
+                    <label asp-for="IBGE" class="control-label"></label>
+                    <input type="text" class="form-control" name="ibge" asp-for="IBGE" readonly />
+                </div>
+            </div>
+            <div class="item col-4">
+                <div class="form-group">
+                    <label asp-for="GIA" class="control-label"></label>
+                    <input type="text" class="form-control" name="gia" asp-for="GIA" readonly />
+                </div>
+            </div>
+            <div class="item col-4">
+                <div class="form-group">
+                    <label asp-for="SIAFI" class="control-label"></label>
+                    <input type="text" class="form-control" name="siafi" asp-for="SIAFI" readonly />
+                </div>
+
+            </div>
+
+            <div class="w-100"></div>
+
+            <div class="item col-4">
+                <div class="input-group">
+                    <div class="input-group-btn m-1">
+                        <button type="submit" id="btnSaveEndereco" class="btn btn-success" disabled> Salvar Endereço </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+</div>
+
+<script>
+     const inputValue = document.querySelector("#cep");
+     let cep = "";
+
+     inputValue.addEventListener("keyup", () => {
+       cep = inputValue.value;
+       if(cep.length === 8) {
+         inputValue.value = `${cep.substr(0,5)}-${cep.substr(5,9)}`;
+       }
+     });
+
+
+    function validateSubmit_BuscaCEP(){
+         let input = document.getElementById("cep").value
+         if(input === ''){
+          return alert('Informe ao menos um CEP corretamente!');
+         }
+         
+         if(input.length < 8){
+          return alert('CEP com tamanho incorreto!');
+         }
+        return document.getElementById('getCEP').submit();
+     }
+
+</script>
+
